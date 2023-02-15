@@ -1,7 +1,10 @@
 package me.xemu.xemchatprotection.event;
 
 import me.xemu.xemchatprotection.builder.AlertBuilder;
+import me.xemu.xemchatprotection.builder.IdentifierBuilder;
 import me.xemu.xemchatprotection.builder.MessageBuilder;
+import me.xemu.xemchatprotection.builder.TimestampBuilder;
+import me.xemu.xemchatprotection.manager.ViolationManager;
 import me.xemu.xemchatprotection.reader.MessageReader;
 import me.xemu.xemchatprotection.reader.ResponseCode;
 import org.bukkit.entity.Player;
@@ -34,6 +37,8 @@ public class MessageSendEvent implements Listener {
 						.send(player);
 				break;
 		}
+
+		new ViolationManager().createViolation(IdentifierBuilder.buildIdentifier(4), player, event.getMessage(), response, TimestampBuilder.build(System.currentTimeMillis()));
 	}
 
 }
