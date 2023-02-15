@@ -29,7 +29,8 @@ public class MessageBuilder {
 	}
 
 	public MessageBuilder prefix() {
-		placeholder("<prefix>", XemChatProtection.INSTANCE.getConfig().getString("Prefix"));
+		placeholder("<prefix>", ChatColor.translateAlternateColorCodes('&',
+				XemChatProtection.INSTANCE.getConfig().getString("Prefix")));
 		return this;
 	}
 

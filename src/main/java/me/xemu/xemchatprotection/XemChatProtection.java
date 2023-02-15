@@ -1,16 +1,12 @@
 package me.xemu.xemchatprotection;
 
 import de.leonhard.storage.Json;
-import de.leonhard.storage.SimplixBuilder;
 import de.leonhard.storage.Yaml;
-import de.leonhard.storage.internal.settings.DataType;
 import lombok.Getter;
 import me.xemu.xemchatprotection.event.MessageSendEvent;
 import me.xemu.xemchatprotection.manager.ConfigurationManager;
-import org.bukkit.Bukkit;
+import me.xemu.xemchatprotection.manager.ViolationManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 @Getter
 public final class XemChatProtection extends JavaPlugin {
@@ -25,6 +21,7 @@ public final class XemChatProtection extends JavaPlugin {
 
 	/* Managers */
 	private ConfigurationManager configurationManager;
+	private ViolationManager violationManager;
 
 	@Override
 	public void onEnable() {
@@ -38,9 +35,12 @@ public final class XemChatProtection extends JavaPlugin {
 		this.violationData = new Json("violationData", "plugins/XemChatProtection");
 
 		this.configurationManager = new ConfigurationManager();
+		this.violationManager = new ViolationManager();
 
 		PROFANITY_SHIELD = getConfiguration().getBoolean("Settings.ProfanityShield");
 		ADVERTISE_SHIELD = getConfiguration().getBoolean("Settings.AdvertiseShield");
+
+		getCommand("violation").setExecutor(new AdminCommand());
 
 		getServer().getPluginManager().registerEvents(new MessageSendEvent(), this);
 	}
