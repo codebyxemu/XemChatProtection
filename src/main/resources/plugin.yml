@@ -3,8 +3,9 @@ version: '${project.version}'
 main: me.xemu.xemchatprotection.XemChatProtection
 api-version: 1.19
 authors: [ Xemu ]
-description: XemChatProtection is back, and stronger than ever. 
+description: XemChatProtection is back, and stronger than ever.
 
 commands:
-  violation:
-    description: Violations from a specific user
+  cp:
+    description: XemChatProtection's main command
+    aliases: [chatprotection, xcp, xemuchatprotection]
