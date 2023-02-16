@@ -1,8 +1,10 @@
 package me.xemu.xemchatprotection.manager;
 
 import me.xemu.xemchatprotection.XemChatProtection;
+import me.xemu.xemchatprotection.word.Word;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigurationManager {
@@ -29,8 +31,20 @@ public class ConfigurationManager {
 
 	}
 
+	@Deprecated
 	public static List<String> getProfanityShield() {
 		return XemChatProtection.INSTANCE.getWords().getStringList("ProfanityShield");
+	}
+
+	public static List<Word> getWords() {
+		List<Word> words = new ArrayList<>();
+		for (String w : XemChatProtection.INSTANCE.getWords().getSection("Profanity").keySet()) {
+			words.add(
+					new Word(w,
+							XemChatProtection.INSTANCE.getWords().getStringList("Profanity." + w + ".aliases"),
+							XemChatProtection.INSTANCE.getWords().getStringList("Profanity." + w + ".ignoreWith")));
+		}
+		return words;
 	}
 
 	public static List<String> getWhitelistedLinks() {
