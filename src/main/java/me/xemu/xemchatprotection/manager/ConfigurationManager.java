@@ -15,6 +15,16 @@ public class ConfigurationManager {
 		plugin.getConfiguration().setDefault("Settings.ProfanityShield", true);
 		plugin.getConfiguration().setDefault("Settings.AdvertiseShield", true);
 
+		plugin.getConfiguration().setDefault("Messages.Alerts.AlertMessage", new String[]{
+				"&8&m-------------- &r &c&lBlocked Message&r &8&m--------------",
+				"&7User: &e<offender>",
+				"&7Response-Code: &4<responseCode>",
+				"&7Blocked Message: &c<blockedMessage>",
+				"&8&m-------------- &r &c&lBlocked Message&r &8&m--------------",
+		});
+		plugin.getConfiguration().setDefault("Messages.Alerts.ProfanityMessage", "<prefix> &cMessage cannot be sent. Includes profanity!");
+		plugin.getConfiguration().setDefault("Messages.Alerts.LinkMessage", "<prefix> &cMessage cannot be sent. Includes a blacklisted link!");
+
 		plugin.getWords().setDefault("ProfanityShield", new String[]{
 				"CONFIGURE_HERE"
 		});
@@ -39,6 +49,11 @@ public class ConfigurationManager {
 
 	public static List<String> getLinkContains() {
 		return XemChatProtection.INSTANCE.getWords().getStringList("LinkContains");
+	}
+
+	public static void reloadConfigurations() {
+		XemChatProtection.INSTANCE.getConfiguration().forceReload();
+		XemChatProtection.INSTANCE.getWords().forceReload();
 	}
 
 }

@@ -43,6 +43,11 @@ public class CPCommand implements CommandExecutor {
 							.colors()
 							.send(player);
 				}
+			} else if (args[0].equalsIgnoreCase("reload")) {
+				new MessageBuilder("&8>> &3Configurations reloaded!")
+						.colors()
+						.send(player);
+				ConfigurationManager.reloadConfigurations();
 			} else {
 				helpPage(player, staff);
 				return true;

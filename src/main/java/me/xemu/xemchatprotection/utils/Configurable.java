@@ -4,12 +4,6 @@ import me.xemu.xemchatprotection.XemChatProtection;
 
 import java.util.List;
 
-enum ConfigFile {
-	CONFIG_YML,
-	WORDS_YML,
-	DATA_JSON
-}
-
 public class Configurable {
 
 	private String path;

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.xemu</groupId>
-    <artifactId>xemu-chatprotection</artifactId>
-    <version>0.0.0-beta-v1</version>
+    <artifactId>xcp-spigot</artifactId>
+    <version>3.0.1-beta</version>
     <packaging>jar</packaging>
 
     <name>xcp-spigot</name>

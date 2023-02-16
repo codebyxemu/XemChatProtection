@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import me.xemu.xemchatprotection.XemChatProtection;
 import me.xemu.xemchatprotection.reader.ResponseCode;
+import me.xemu.xemchatprotection.utils.ConfigFile;
+import me.xemu.xemchatprotection.utils.Configurable;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -25,17 +27,25 @@ public class AlertBuilder {
 
 	public void execute() {
 
-		String[] message = new String[]{
+		List<String> configMessage = new Configurable("Messages.Alerts.AlertMessage", ConfigFile.CONFIG_YML).strings();
+
+/*		String[] message = new String[]{
 				"&8&m-------------- &r &c&lBlocked Message&r &8&m--------------",
 				"&7User: &e" + offender.getName(),
 				"&7Response-Code: &4" + responseCode.name(),
 				"&7Blocked Message: &c" + blockedMessage,
 				"&8&m-------------- &r &c&lBlocked Message&r &8&m--------------",
-		};
+		};*/
 
 		Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission(XemChatProtection.INSTANCE.getConfiguration().getString("StaffPermission"))).forEach(member -> {
-			for (String m : message) {
-				member.sendMessage(ChatColor.translateAlternateColorCodes('&', m));
+			for (String m : configMessage) {
+				//member.sendMessage(ChatColor.translateAlternateColorCodes('&', m));
+				new MessageBuilder(m)
+						.colors()
+						.placeholder("<offender>", offender.getName())
+						.placeholder("<responseCode>", responseCode.name())
+						.placeholder("<blockedMessage>", blockedMessage)
+						.send(member);
 			}
 		});
 	}
