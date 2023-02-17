@@ -1,8 +1,10 @@
 package me.xemu.xemchatprotection.manager;
 
 import me.xemu.xemchatprotection.XemChatProtection;
+import me.xemu.xemchatprotection.utils.Word;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigurationManager {
@@ -25,9 +27,7 @@ public class ConfigurationManager {
 		plugin.getConfiguration().setDefault("Messages.Alerts.ProfanityMessage", "<prefix> &cMessage cannot be sent. Includes profanity!");
 		plugin.getConfiguration().setDefault("Messages.Alerts.LinkMessage", "<prefix> &cMessage cannot be sent. Includes a blacklisted link!");
 
-		plugin.getWords().setDefault("ProfanityShield", new String[]{
-				"CONFIGURE_HERE"
-		});
+		plugin.getWords().setDefault("Words.ConfigureMe.aliases", new String[]{});
 
 		plugin.getWords().setDefault("WhitelistedLinks", new String[]{
 				"https://google.com"
@@ -41,6 +41,21 @@ public class ConfigurationManager {
 
 	public static List<String> getProfanityShield() {
 		return XemChatProtection.INSTANCE.getWords().getStringList("ProfanityShield");
+	}
+
+	public static List<Word> getWords() {
+		List<Word> words = new ArrayList<>();
+
+		for (String word : XemChatProtection.INSTANCE.getWords().keySet("Words")) {
+			Word wordFromConfig = new Word(
+					word.replaceAll(".aliases", ""),
+					XemChatProtection.INSTANCE.getWords().getStringList("Words." + word + ".aliases")
+			);
+
+			words.add(wordFromConfig);
+		}
+
+		return words;
 	}
 
 	public static List<String> getWhitelistedLinks() {

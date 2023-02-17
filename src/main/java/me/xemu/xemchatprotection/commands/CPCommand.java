@@ -3,6 +3,7 @@ package me.xemu.xemchatprotection.commands;
 import me.xemu.xemchatprotection.XemChatProtection;
 import me.xemu.xemchatprotection.builder.MessageBuilder;
 import me.xemu.xemchatprotection.manager.ConfigurationManager;
+import me.xemu.xemchatprotection.utils.Word;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,10 +25,13 @@ public class CPCommand implements CommandExecutor {
 		} else if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("words")) {
 				new MessageBuilder("&8>> &eSearching for words...").colors().send(player);
-				for (String word : ConfigurationManager.getProfanityShield()) {
-					new MessageBuilder("&8>> &f" + word).colors().send(player);
+				for (Word word : ConfigurationManager.getWords()) {
+					new MessageBuilder("&8--------------------------------------" + word).colors().send(player);
+					new MessageBuilder("&8&l>> &eWord: &f" + word.getWord()).colors().send(player);
+					new MessageBuilder("&8&l>> &eAliases: &f" + word.getAliases()).colors().send(player);
+					new MessageBuilder("&8--------------------------------------" + word).colors().send(player);
 				}
-				new MessageBuilder("&8>> &eTotal Words: &f" + ConfigurationManager.getProfanityShield().size()).colors().send(player);
+				new MessageBuilder("&8>> &eTotal Words: &f" + ConfigurationManager.getWords().size());
 			} else if (args[0].equalsIgnoreCase("support")) {
 				boolean supported = false;
 				if (XemChatProtection.INSTANCE.getDescription().getVersion().contains("1_19")) {
