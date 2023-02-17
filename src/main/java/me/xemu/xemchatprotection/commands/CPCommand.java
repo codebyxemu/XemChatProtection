@@ -28,7 +28,12 @@ public class CPCommand implements CommandExecutor {
 				for (Word word : ConfigurationManager.getWords()) {
 					new MessageBuilder("&8--------------------------------------").colors().send(player);
 					new MessageBuilder("&8&l>> &eWord: &f" + word.getWord()).colors().send(player);
-					new MessageBuilder("&8&l>> &eAliases: &f" + word.getAliases()).colors().send(player);
+					if (word.getAliases() != null) {
+						new MessageBuilder("&8&l>> &eAliases: &f" + word.getAliases()).colors().send(player);
+					}
+					if (word.getIgnoreWith() != null) {
+						new MessageBuilder("&8&l>> &eIgnore With: &f" + word.getIgnoreWith()).colors().send(player);
+					}
 					new MessageBuilder("&8--------------------------------------").colors().send(player);
 				}
 				new MessageBuilder("&8>> &eTotal Words: &f" + ConfigurationManager.getWords().size());
