@@ -14,7 +14,7 @@ public class ConfigurationManager {
 	public ConfigurationManager() {
 		plugin.getConfiguration().setDefault("Prefix", "&8[&3Chat&bProtection&8]");
 		plugin.getConfiguration().setDefault("StaffPermission", "xcp.staff");
-		plugin.getConfiguration().setDefault("Settings.ProfanityShield", true);
+	//	plugin.getConfiguration().setDefault("Settings.ProfanityShield", true);
 		plugin.getConfiguration().setDefault("Settings.AdvertiseShield", true);
 
 		plugin.getConfiguration().setDefault("Messages.Alerts.AlertMessage", new String[]{
@@ -28,6 +28,7 @@ public class ConfigurationManager {
 		plugin.getConfiguration().setDefault("Messages.Alerts.LinkMessage", "<prefix> &cMessage cannot be sent. Includes a blacklisted link!");
 
 		plugin.getWords().setDefault("Words.ConfigureMe.aliases", new String[]{});
+		plugin.getWords().setDefault("Words.ConfigureMe.ignoreWith", new String[]{});
 
 		plugin.getWords().setDefault("WhitelistedLinks", new String[]{
 				"https://google.com"
@@ -46,10 +47,11 @@ public class ConfigurationManager {
 	public static List<Word> getWords() {
 		List<Word> words = new ArrayList<>();
 
-		for (String word : XemChatProtection.INSTANCE.getWords().keySet("Words")) {
+		for (String word : XemChatProtection.INSTANCE.getWords().singleLayerKeySet("Words")) {
 			Word wordFromConfig = new Word(
 					word.replaceAll(".aliases", ""),
-					XemChatProtection.INSTANCE.getWords().getStringList("Words." + word + ".aliases")
+					XemChatProtection.INSTANCE.getWords().getStringList("Words." + word + ".aliases"),
+					XemChatProtection.INSTANCE.getWords().getStringList("Words." + word + ".ignoreWith")
 			);
 
 			words.add(wordFromConfig);

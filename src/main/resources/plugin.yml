@@ -1,7 +1,6 @@
 name: XemChatProtection
 version: '${project.version}'
 main: me.xemu.xemchatprotection.XemChatProtection
-api-version: 1.19
 authors: [ Xemu ]
 description: XemChatProtection is back, and stronger than ever.
 

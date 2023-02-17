@@ -12,4 +12,5 @@ import java.util.List;
 public class Word {
 	private String word;
 	private List<String> aliases;
+	private List<String> ignoreWith;
 }

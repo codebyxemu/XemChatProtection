@@ -35,10 +35,11 @@ public final class XemChatProtection extends JavaPlugin {
 
 		this.configurationManager = new ConfigurationManager();
 
-		PROFANITY_SHIELD = getConfiguration().getBoolean("Settings.ProfanityShield");
+		//PROFANITY_SHIELD = getConfiguration().getBoolean("Settings.ProfanityShield");
 		ADVERTISE_SHIELD = getConfiguration().getBoolean("Settings.AdvertiseShield");
 
-		getCommand("cp").setExecutor(new CPCommand());
+		getCommand("cp")
+				.setExecutor(new CPCommand());
 
 		getServer().getPluginManager().registerEvents(new MessageSendEvent(), this);
 	}

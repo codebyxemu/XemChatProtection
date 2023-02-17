@@ -26,17 +26,34 @@ public class MessageReader {
 		}*/
 
 		for (Word word : ConfigurationManager.getWords()) {
-			if (readMessage.toLowerCase().contains(word.getWord().toLowerCase())) {
-				return ResponseCode.DECLINED_PROFANITY;
-			}
-			if (word.getAliases() != null) {
-				for (String alias : word.getAliases()) {
-					if (readMessage.toLowerCase().contains(alias.toLowerCase())) {
-						return ResponseCode.DECLINED_PROFANITY;
+			if (word.getWord().toLowerCase().contains(readMessage)) {
+				if (word.getIgnoreWith() != null) {
+					for (String ignore : word.getIgnoreWith()) {
+						if (readMessage.toLowerCase().contains(readMessage.toLowerCase()) || word.getWord().toLowerCase().contains(ignore.toLowerCase())) {
+							return ResponseCode.ACCEPTED;
+						}
 					}
 				}
+
+				if (word.getAliases() != null) {
+					for (String alias : word.getAliases()) {
+						if (readMessage.toLowerCase().contains(alias.toLowerCase())) {
+							if (word.getIgnoreWith() != null) {
+								for (String ignore : word.getIgnoreWith()) {
+									if (alias.toLowerCase().contains(ignore)) {
+										return ResponseCode.ACCEPTED;
+									}
+								}
+							}
+							return ResponseCode.DECLINED_PROFANITY;
+						}
+					}
+				}
+
+				return ResponseCode.DECLINED_PROFANITY;
 			}
 		}
+
 
 		for (String identifier : ConfigurationManager.getLinkContains()) {
 			if (readMessage.toLowerCase().contains(identifier.toLowerCase())) {

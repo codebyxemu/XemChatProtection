@@ -26,10 +26,10 @@ public class CPCommand implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("words")) {
 				new MessageBuilder("&8>> &eSearching for words...").colors().send(player);
 				for (Word word : ConfigurationManager.getWords()) {
-					new MessageBuilder("&8--------------------------------------" + word).colors().send(player);
+					new MessageBuilder("&8--------------------------------------").colors().send(player);
 					new MessageBuilder("&8&l>> &eWord: &f" + word.getWord()).colors().send(player);
 					new MessageBuilder("&8&l>> &eAliases: &f" + word.getAliases()).colors().send(player);
-					new MessageBuilder("&8--------------------------------------" + word).colors().send(player);
+					new MessageBuilder("&8--------------------------------------").colors().send(player);
 				}
 				new MessageBuilder("&8>> &eTotal Words: &f" + ConfigurationManager.getWords().size());
 			} else if (args[0].equalsIgnoreCase("support")) {
@@ -88,4 +88,5 @@ public class CPCommand implements CommandExecutor {
 			}
 		}
 	}
+
 }
